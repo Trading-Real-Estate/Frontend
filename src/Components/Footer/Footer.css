@@ -1,0 +1,43 @@
+.footer {
+    background-color: #000;
+    color: #fff;
+    padding: 50px 0;
+  }
+  
+  .container {
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  .footer-row {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .footer-column {
+    width: 30%;
+  }
+  
+  .footer-column h2 {
+    margin-bottom: 20px;
+  }
+  
+  .footer-column input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .footer-column button {
+    width: 100%;
+    padding: 10px;
+    background-color: #fff;
+    color: #000;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .footer-column img {
+    width: 100px; /* Thay đổi kích thước ảnh nhỏ tùy ý */
+  }
+  

@@ -1,0 +1,35 @@
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* Chia layout thành 3 cột bằng nhau */
+  gap: 20px;
+  /* Khoảng cách giữa các card */
+}
+
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper .swiperslider {
+  display: flex;
+  justify-content: center;
+}
+
+.swiper .swiper-pagination {
+  /* Màu nền của pagination */
+  color: #000000;
+  /* Màu chữ của pagination */
+}
+
+/* CSS cho navigation */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #ffffff;
+  /* Màu của nút next và previous */
+}
+
+.swiper .swiper-button-next, .swiper.swiper-button-prev{
+  font-size: small;
+}

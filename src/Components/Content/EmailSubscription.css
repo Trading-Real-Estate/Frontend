@@ -1,0 +1,34 @@
+.email-subscription {
+    background-color: #f2f2f2;
+    padding: 50px;
+    text-align: center;
+  }
+  
+  .email-subscription h2 {
+    margin-bottom: 20px;
+  }
+  
+  .email-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .email-input input {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    width: 500px;
+  }
+  
+  .email-input button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  
