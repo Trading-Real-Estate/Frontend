@@ -3,15 +3,26 @@ import { Layout, Button, Badge, Avatar, Dropdown, Menu } from 'antd';
 import { BellOutlined, UserOutlined, MenuOutlined } from '@ant-design/icons';
 import CustomSearch from './CustomSearch';
 import { useNavigate } from 'react-router-dom';
+import ConnectMetamaskButton from '../Login';
 
 const { Header } = Layout;
 
-const AppHeader = ({ onSearch, hasUnreadNotification }) => {
+const AppHeader = ({ onSearch, isHome }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState('normal');
+  // Thêm trạng thái mới để theo dõi thông báo chưa đọc+
+  const [hasUnreadNotification,setHasUnreadNotification ] = useState(false);
+  //+
+  // Thêm state để quản lý màu của Badge thông báo++
+const [notificationColor, setNotificationColor] = useState(''); // Mặc định là rỗng++
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Cập nhật useEffect để đặt màu thông báo là đỏ khi vào trang User Profile++
+    const path = window.location.pathname;
+  if (path === '/user-profile') {
+    setNotificationColor('red'); // Đặt màu thông báo là đỏ
+  }//++
     const loggedIn = localStorage.getItem('isLoggedIn');
     const role = localStorage.getItem('userRole');
     if (loggedIn === 'true' && role) {
@@ -33,15 +44,36 @@ const AppHeader = ({ onSearch, hasUnreadNotification }) => {
     localStorage.removeItem('userRole');
   };
 
-  const handleUserProfile = () => {
-    // Redirect user to user profile page
-    navigate('/user-profile');
-  };
 
+  // const handleUserProfileClick = () => {
+  //   // Kiểm tra điều kiện cho người dùng có vai trò 'normal'
+  //   if (userRole === 'normal' && isHome) {
+  //     // Điều kiện để ở trang Home và không chuyển hướng
+  //     setHasUnreadNotification(true); // Đánh dấu thông báo là chưa đọc
+  //   } else if (userRole === 'notary' || !isHome) {
+  //     // Điều kiện cho người dùng với vai trò 'notary' hoặc không ở trang Home
+  //     navigate('/user-info'); // Điều hướng đến trang UserInfo
+  //   }
+    
+  // };
+  const handleUserProfileClick = () => {
+    const path = window.location.pathname;
+    if (userRole === 'normal' && isHome) {
+      // Logic hiện tại cho người dùng bình thường ở trang Home
+      setHasUnreadNotification(true);
+    } else if (userRole === 'notary' || !isHome) {
+      // Điều hướng đến UserInfo cho người dùng Notary hoặc khi không ở trang Home
+      navigate('/user-info');
+    } else if (!isHome && path === '/user-profile') {
+      // Đoạn mới thêm: Logic đặc biệt cho trang UserKyc
+      setHasUnreadNotification(true); // Đánh dấu thông báo khi ở trang UserKyc
+    }
+  };
   const handleSwitchToNotary = () => {
     setUserRole('notary');
     localStorage.setItem('userRole', 'notary');
   };
+
 
   const handleMenuClick = (menu) => {
     // Handle menu item click
@@ -52,8 +84,23 @@ const AppHeader = ({ onSearch, hasUnreadNotification }) => {
       handleLogout(); // Xử lý đăng xuất khi click vào logout
     }
   };
-
-
+// Hiển thị message khi click vào thông báo++
+const handleNotificationClick = () => {
+  const path = window.location.pathname;
+  if (isHome) { // Kiểm tra xem Header có đang được sử dụng trong Home.js không
+    
+  alert('Bạn phải UserKyc thì mới thực hiện được chức năng này. Bấm vào đây để bắt đầu thực hiện UserKyc');
+  navigate('/user-profile'); // Điều hướng người dùng tới trang UserKyc
+  setHasUnreadNotification(false); // Reset trạng thái thông báo về đã đọc sau khi click
+  setNotificationColor(''); // Reset màu thông báo
+   }  else if (path === '/user-profile') {
+     // Đoạn mới thêm: Hiển thị thông báo khi ở trang UserKyc và thông báo được click
+     alert('Bạn phải hoàn thành UserKyc');
+     setHasUnreadNotification(false); // Reset trạng thái thông báo về đã đọc
+     setNotificationColor(''); // Reset màu thông báo
+  }
+};
+//++
 
   const handleLogoClick = () => {
     // Handle logo click
@@ -70,7 +117,7 @@ const AppHeader = ({ onSearch, hasUnreadNotification }) => {
   );
 
   const menuItems = [
-    <Menu.Item key="1" onClick={handleUserProfile}>Thông tin người dùng</Menu.Item>,
+    <Menu.Item key="1" onClick={handleUserProfileClick}>Thông tin người dùng</Menu.Item>,
   ];
 
   if (userRole === 'notary') {
@@ -90,6 +137,7 @@ const AppHeader = ({ onSearch, hasUnreadNotification }) => {
     <Menu.Item key="logout" onClick={handleLogout}>Đăng xuất</Menu.Item>
   );
 
+
   return (
     <Header style={{ background: 'rgba(255, 255, 255, 0.8)', padding: '20px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'fixed', width: '100%', zIndex: 1000 }}>
       <div style={{ display: 'flex', alignItems: 'center', flex: '1' }}>
@@ -97,9 +145,10 @@ const AppHeader = ({ onSearch, hasUnreadNotification }) => {
         <CustomSearch onSearch={onSearch} />
       </div>
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <Badge dot={hasUnreadNotification} style={{ marginRight: '20px' }}>
-          <BellOutlined style={{ fontSize: '20px', marginRight: '20px' }} />
-        </Badge>
+      
+      <Badge dot={hasUnreadNotification} style={{ backgroundColor: notificationColor, marginRight: '20px' }} onClick={handleNotificationClick}>
+  <BellOutlined style={{ fontSize: '20px', marginRight: '20px' }} />
+</Badge>
         <Dropdown overlay={menu}
           placement="topRight"
           trigger={['hover']}
@@ -114,7 +163,7 @@ const AppHeader = ({ onSearch, hasUnreadNotification }) => {
             </div>
           </Dropdown>
         ) : (
-          <Button type="text" onClick={handleLogin} style={{ textDecoration: 'underline', cursor: 'pointer', color: 'blue' }}>Đăng nhập</Button>
+          <ConnectMetamaskButton onLogin={handleLogin} />
         )}
         <Button onClick={handleSwitchToNotary} style={{ marginLeft: '20px', marginRight: '30px' }}>Chuyển sang Notary</Button> {/* Nút này sẽ chuyển đổi sang trạng thái Notary */}
       </div>

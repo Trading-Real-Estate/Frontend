@@ -1,0 +1,80 @@
+
+/* Navigationmenu */
+
+.Navigation-menu {
+    display: flex;
+    justify-content: space-around; 
+    padding: 20px 0;
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+  }
+  .Navigation-item {
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+  
+  .circle {
+    display: inline-block;
+    width: 25px; /* Adjust size as needed */
+    height: 25px; /* Adjust size as needed */
+    line-height: 25px; /* Adjust line height to match height for vertical centering */
+    border-radius: 50%; /* Creates the circle */
+    background-color: #f0f0f0; /* Default background */
+    color: black; /* Default text color */
+    margin-right: 5px; /* Space between the circle and text */
+    text-align: center;
+  }
+  .Navigation-item.active .circle {
+    background-color: blue; /* Active background color */
+    color: white; /* Active text color */
+  }
+  /* OwnerContent */
+  .Owner-info {
+    margin: 20px;
+    text-align: left;
+  }
+  
+  .Owner-information, .Buttons {
+    margin: 10px 0;
+  }
+  
+  .Add-owner {
+    background-color: #4CAF50;
+    color: white;
+    margin-right: 10px;
+  }
+  
+  .Remove-owner {
+    background-color: #f44336;
+    color: white;
+  }
+  /* Foodter */
+  .App-footer {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    
+    
+    padding: 20px;
+    background-color: #e8ecf3;
+  
+  }
+  
+  /* nut buttton chuyen trang */
+  /* Add styles for buttons when they are focused or clicked */
+  .Button:focus, .Button:active {
+    background-color: #007bff; /* Blue background */
+    color: white; /* White text */
+    border-color: #007bff;
+  }
+  
+  /* Alternatively, define a specific class for changing the color,
+  but using :focus or :active is more straightforward for click effects */
+  .BlueButton {
+    background-color: #007bff; /* Blue background */
+    color: white; /* White text */
+    border-color: #007bff;
+  }
+  
