@@ -3,6 +3,7 @@ import { Layout, Button, Badge, Avatar, Dropdown, Menu } from 'antd';
 import { BellOutlined, UserOutlined, MenuOutlined } from '@ant-design/icons';
 import CustomSearch from './CustomSearch';
 import { useNavigate } from 'react-router-dom';
+import ConnectMetamaskButton from '../Login';
 
 const { Header } = Layout;
 
@@ -114,7 +115,7 @@ const AppHeader = ({ onSearch, hasUnreadNotification }) => {
             </div>
           </Dropdown>
         ) : (
-          <Button type="text" onClick={handleLogin} style={{ textDecoration: 'underline', cursor: 'pointer', color: 'blue' }}>Đăng nhập</Button>
+          <ConnectMetamaskButton onLogin={handleLogin} />
         )}
         <Button onClick={handleSwitchToNotary} style={{ marginLeft: '20px', marginRight: '30px' }}>Chuyển sang Notary</Button> {/* Nút này sẽ chuyển đổi sang trạng thái Notary */}
       </div>
