@@ -37,4 +37,4 @@ jobs:
           rsync -ahrz --delete-after -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" ./build ${{ env.CI_USER }}@${{ env.CI_IP }}:${{ env.CI_PATH }}
 
     # Only run this job on the develop branch
-    if: github.ref == 'refs/heads/main'
+    # if: github.ref == 'refs/heads/feat/linhvt/ci-cd'
