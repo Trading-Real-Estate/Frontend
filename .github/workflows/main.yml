@@ -1,4 +1,4 @@
-name: Deploy
+name: Build and Deploy React App
 
 on:
   push:
@@ -6,35 +6,28 @@ on:
       - feat/linhvt/ci-cd
 
 jobs:
-  deploy:
-    name: Deploy to Development
+  build:
     runs-on: ubuntu-latest
-    env:
-      CI_USER: ubuntu 
-      CI_IP: 192.168.99.75
-      CI_PATH: /srv
-      # CI_ENV_FILE: path/to/dev_env_file
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout Repository
+      uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18.19.0'
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14' 
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build
-        run: npm run build
-
-      # - name: Create .env file
-      #   run: cat ${{ env.CI_DEV_ENV_FILE }} > .env
-
-      - name: Deploy to Development
-        run: |
-          rsync -ahrz --delete-after -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" ./build ${{ env.CI_USER }}@${{ env.CI_IP }}:${{ env.CI_PATH }}
-
-    # Only run this job on the develop branch
-    # if: github.ref == 'refs/heads/feat/linhvt/ci-cd'
+    - name: Install Dependencies
+      run: npm install 
+    - name: Build React App
+      run: npm run build 
+    - name: Deploy to Server
+      uses: easingthemes/ssh-deploy@v2
+      with:
+        server: ${{ secrets.SERVER }} 
+        remote_port: ${{ secrets.PORT }}
+        remote_user: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        local_path: ./build/
+        remote_path: /path/to/destination
