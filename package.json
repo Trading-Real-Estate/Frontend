@@ -1,5 +1,5 @@
 {
-  "name": "bdsBlockchain_fronend",
+  "name": "bds_blockchain_frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,12 +7,9 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-<<<<<<< HEAD
     "animate.css": "^4.1.1",
     "antd": "^5.14.1",
-=======
     "dotenv": "^16.4.1",
->>>>>>> 6e11664b07af2b7672439a0d32483a3fb74d3fc3
     "react": "^18.2.0",
     "react-coverflow": "^0.2.20",
     "react-dom": "^18.2.0",
