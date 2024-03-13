@@ -31,6 +31,6 @@ jobs:
 
     - name: Deploy to server
       run: |
-        ssh "$SSH_USER@$SSH_HOST "cd $WORD_DIR && git checkout $MAIN_BRANCH" && git pull $MAIN_BRANCH
+        ssh "$SSH_USER@$SSH_HOST "cd $WORD_DIR && git checkout $MAIN_BRANCH" && git pull && exit"
     - name: Clean 
       run: rm -rf ~/.ssh
