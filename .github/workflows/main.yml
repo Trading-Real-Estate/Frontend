@@ -30,7 +30,7 @@ jobs:
           echo "$SSH_HOSTS" > ~/.ssh/known_hosts
     - name: Deploy to server
       run: |
-        rsync -rav --delete build/ ubuntu@192.168.99.75:/
+        rsync -rav --delete build/ root@192.168.99.75:/
         # rsync -ahrz --delete-after -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" build/ ubuntu@192.168.99.75:/srv/frontend
     - name: Clean 
       run: rm -rf ~/.ssh
