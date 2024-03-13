@@ -24,13 +24,13 @@ jobs:
       run: npm run build 
     - name: Install SSH key
       run: |
-        
           mkdir -p ~/.ssh/
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           sudo chmod 600 ~/.ssh/id_rsa
           echo "$SSH_HOSTS" > ~/.ssh/known_hosts
     - name: Deploy to server
       run: |
-        rsync -ahrz --delete-after -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" build/ ubuntu@192.168.99.75:/srv/frontend
+        rsync -rav --delete build/ ubuntu@192.168.99.75:/
+        # rsync -ahrz --delete-after -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" build/ ubuntu@192.168.99.75:/srv/frontend
     - name: Clean 
       run: rm -rf ~/.ssh
