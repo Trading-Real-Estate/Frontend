@@ -28,11 +28,9 @@ jobs:
     - name: Install SSH key
       run: |
           whoami
-          install -m 600 -D /dev/null ~/.ssh/id_rsa
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          echo "$SSH_HOSTS" > ~/.ssh/known_hosts
+          pwd
     - name: Deploy to server
       run: |
-        rsync -ahrz --delete-after -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" build/ ubuntu@192.168.99.75:/
+        rsync -ahrz --delete-after -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" build/ ubuntu@192.168.99.75:/srv/frontend
     - name: Clean 
       run: rm -rf ~/.ssh
