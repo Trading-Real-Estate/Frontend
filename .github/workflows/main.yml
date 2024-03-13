@@ -30,4 +30,4 @@ jobs:
 
     - name: Deploy to server
       run: |
-          ssh ${{secret.SSH_USER  }}@${{secret.SSH_HOST}} "cd ${{secret.WORD_DIR}} && git checkout {{secret.MAIN_BRANCH}}" && it pull ${{secret.MAIN_BRANCH}}
+          ssh ${{secret.SSH_USER  }}@${{secret.SSH_HOST}} "cd ${{secret.WORD_DIR}} && git checkout ${{secret.MAIN_BRANCH}}" && it pull ${{secret.MAIN_BRANCH}}
