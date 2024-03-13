@@ -26,10 +26,8 @@ jobs:
       run: |
         
         install -m 600 -D /dev/null ~/.ssh/id_rsa
-        echo $SSH_PRIVATE_KEY > ~/.ssh/id_rsa
-        echo $SSH_HOST
-        ssh-keyscan -H $SSH_HOST > ~/.ssh/known_hosts
-
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
     - name: Deploy to server
       run: |
         ssh "$SSH_USER@$SSH_HOST "cd $WORD_DIR && git checkout $MAIN_BRANCH" && git pull && exit"
