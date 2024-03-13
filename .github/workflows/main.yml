@@ -24,11 +24,10 @@ jobs:
       run: npm run build 
     - name: Install SSH key
       run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo ${{secret.SSH_PRIVATE_KEY}} > ~/.ssh/id_rsa
+          ssh-keyscan -H ${{secret.SSH_HOST}} >> ~/.ssh/known_hosts
 
     - name: Deploy to server
       run: |
-          ssh username@$SERVER_IP "cd /path/to/deployment; git pull origin feat/linhvt/ci-cd"
+          ssh ${{secret.SSH_USER  }}@${{secret.SSH_HOST}} "cd ${{secret.WORD_DIR}} && git checkout {{secret.MAIN_BRANCH}}" && it pull ${{secret.MAIN_BRANCH}}
