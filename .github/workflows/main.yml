@@ -16,18 +16,19 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '14' 
+        node-version: '18' 
 
     - name: Install Dependencies
       run: npm install 
     - name: Build React App
       run: npm run build 
-    - name: Deploy to Server
-      uses: easingthemes/ssh-deploy@v2
-      with:
-        server: ${{ secrets.SERVER }} 
-        remote_port: ${{ secrets.PORT }}
-        remote_user: ${{ secrets.USERNAME }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        local_path: ./build/
-        remote_path: /path/to/destination
+    - name: Install SSH key
+      run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
+
+    - name: Deploy to server
+      run: |
+          ssh username@$SERVER_IP "cd /path/to/deployment; git pull origin feat/linhvt/ci-cd"
