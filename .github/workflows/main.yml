@@ -32,3 +32,5 @@ jobs:
     - name: Deploy to server
       run: |
         ssh ${{secrets.SSH_USER  }}@${{secrets.SSH_HOST}} "cd ${{secrets.WORD_DIR}} && git checkout ${{secrets.MAIN_BRANCH}}" && git pull ${{secrets.MAIN_BRANCH}}
+    - name: Clean 
+      run: rm -rf ~/.ssh
