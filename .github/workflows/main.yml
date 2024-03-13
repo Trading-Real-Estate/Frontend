@@ -31,6 +31,6 @@ jobs:
           echo "$SSH_HOSTS" > ~/.ssh/known_hosts
     - name: Deploy to server
       run: |
-        ssh "$SSH_USER@$SSH_HOST "cd $WORD_DIR && git checkout $MAIN_BRANCH" && git pull && exit"
+        rsync -rav --delete build/ $SSH_USER@$SSH_HOST:$WORD_DIR
     - name: Clean 
       run: rm -rf ~/.ssh
