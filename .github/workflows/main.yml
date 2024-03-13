@@ -32,6 +32,6 @@ jobs:
     - name: Deploy to server
       run: |
         cd /srv/frontend
-        rsync -ahrz --delete-after -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" build/ .
+        rsync -ahrz --delete-after -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" ./build .
     - name: Clean 
       run: rm -rf ~/.ssh
