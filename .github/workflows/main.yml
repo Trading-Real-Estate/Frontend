@@ -22,6 +22,9 @@ jobs:
       run: npm install --force
     - name: Build React App
       run: npm run build 
+  deploy:
+    runs-on: self-hosted
+    steps:
     - name: Install SSH key
       run: |
           chmod 400 all_key.pem
@@ -31,6 +34,6 @@ jobs:
           echo "$SSH_HOSTS" > ~/.ssh/known_hosts
     - name: Deploy to server
       run: |
-        ssh -i "all_key.pem" ubuntu@ec2-18-181-78-211.ap-northeast-1.compute.amazonaws.com
+        rsync -ahrz --delete-after -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" build/ ubuntu@192.168.99.75:/
     - name: Clean 
       run: rm -rf ~/.ssh
