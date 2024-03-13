@@ -26,11 +26,11 @@ jobs:
       run: |
         
         install -m 600 -D /dev/null ~/.ssh/id_rsa
-        echo ${{secrets.SSH_PRIVATE_KEY}} > ~/.ssh/id_rsa
-        ssh-keyscan -H ${{secrets.SSH_HOST}} > ~/.ssh/known_hosts
+        echo $SSH_PRIVATE_KEY > ~/.ssh/id_rsa
+        ssh-keyscan $SSH_HOST > ~/.ssh/known_hosts
 
     - name: Deploy to server
       run: |
-        ssh ${{secrets.SSH_USER  }}@${{secrets.SSH_HOST}} "cd ${{secrets.WORD_DIR}} && git checkout ${{secrets.MAIN_BRANCH}}" && git pull ${{secrets.MAIN_BRANCH}}
+        ssh "$SSH_USER@$SSH_HOST "cd $WORD_DIR && git checkout $MAIN_BRANCH" && git pull $MAIN_BRANCH
     - name: Clean 
       run: rm -rf ~/.ssh
