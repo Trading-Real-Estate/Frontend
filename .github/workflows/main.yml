@@ -11,15 +11,15 @@ jobs:
     steps:
 
     - name: Install Dependencies
-      run: npm install --force
+      run: 
+        node -v
+        npm -v
+        npm install --force
     - name: Build React App
       run: 
         npm run build
         pwd
-  deploy:
-    runs-on: self-hosted
-    steps:
-    - name: Install SSH key
+    - name: Whoami
       run: |
           whoami
           pwd
