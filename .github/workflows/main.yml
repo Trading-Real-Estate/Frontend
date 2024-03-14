@@ -24,6 +24,7 @@ jobs:
       run: |
         pwd
         npm run build
+        ls -la
         
   deploy:
     runs-on: self-hosted
