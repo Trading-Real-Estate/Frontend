@@ -11,7 +11,8 @@ jobs:
     steps:
 
     - name: Install Dependencies
-      run: 
+      run: |
+        whoami
         node -v
         npm -v
         npm install --force
