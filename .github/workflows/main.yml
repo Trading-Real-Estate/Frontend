@@ -26,13 +26,15 @@ jobs:
         npm run build
         ls -la
     - name: Install SSH key
-      run: |
-        install -m 600 -D /dev/null ~/.ssh/id_rsa
-        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-        ssh-keyscan -H "$SSH_HOST"> ~/.ssh/known_hosts
-    - name: Deploy to server
-      run: |
-        cd /srv/frontend
-        rsync -ahrz --delete-after -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" ./build .
+      uses: shimataro/ssh-key-action@v2
+      with:  
+        key: $SSH_PRIVATE_KEY
+        know_hosts: 'just-a-placeholder-so-we-dont-get-errors'
+    - name: Adding Known Hosts
+      run: ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
+      
+    - name: Deploy with rsync
+      run: rsync -avz ./build/ $SSH_USER@$SSH_HOST:/srv/frontend/build/
+      
     - name: Clean 
       run: rm -rf ~/.ssh
