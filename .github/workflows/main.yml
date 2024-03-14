@@ -31,7 +31,7 @@ jobs:
         key: $SSH_PRIVATE_KEY
         known_hosts: unnecessary
     - name: Adding Known Hosts
-      run: ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
+      run: ssh-keyscan -p 22-H $SSH_HOST >> ~/.ssh/known_hosts
       
     - name: Deploy with rsync
       run: rsync -avz ./build/ $SSH_USER@$SSH_HOST:/srv/frontend/build/
