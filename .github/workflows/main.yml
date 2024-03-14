@@ -25,16 +25,20 @@ jobs:
         pwd
         npm run build
         ls -la
-    - name: Install SSH key
-      uses: shimataro/ssh-key-action@v2
-      with:  
-        key: $SSH_PRIVATE_KEY
-        known_hosts: unnecessary
-    - name: Adding Known Hosts
-      run: echo $SSH_HOST > ~/.ssh/known_hosts
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: build
+      - name: Create SSH key
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+      - name: Deploy with rsync
+        run: rsync -rav --delete build/ user@host:/
       
-    - name: Deploy with rsync
-      run: rsync -avz ./build/ $SSH_USER@$SSH_HOST:/srv/frontend/build/
-      
-    - name: Clean 
-      run: rm -rf ~/.ssh
+      - name: Clean 
+        run: rm -rf ~/.ssh
