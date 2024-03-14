@@ -2,35 +2,26 @@ import React, { useState } from 'react';
 import { Button } from 'antd';
 import { ethers } from "ethers";
 
+
 function ConnectMetamaskButton({ onLogin }) {
   const [connected, setConnected] = useState(false);
 
+  // Function to handle connecting to Metamask and signing a message
   const connectAndSign = async () => {
     if (window.ethereum) {
       try {
-        // Ensure the user has given permission to access their accounts
-        await window.ethereum.request({ method: 'eth_requestAccounts' });
-
-        // Get the list of connected accounts
-        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-
-        // Check if there are any connected accounts
-        if (!accounts || accounts.length === 0) {
-          throw new Error('No connected accounts found');
-        }
-
-        // Use the first connected account
+        // Requesting access to user accounts
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
         const address = accounts[0];
         
         // Create a provider
-        const provider = new ethers.BrowserProvider(window.ethereum);
+        const { providers } = ethers;
+        const provider = new providers.Web3Provider(window.ethereum);
         // Get the signer
         const signer = provider.getSigner();
-        await provider.send("eth_requestAccounts", []);
-        // Generate a random nonce
-        const nonce = Math.floor(Math.random() * 1000000);
         
-        // Create the message to sign
+        // Message to sign
+        const nonce = Math.floor(Math.random() * 1000000); // Generate a random nonce
         const message = `Welcome to XYZ, please sign this message to authenticate: ${nonce}`;
         
         // Sign the message
