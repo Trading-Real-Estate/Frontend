@@ -25,20 +25,18 @@ jobs:
         pwd
         npm run build
         ls -la
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
+    - name: Chose file
+      uses: actions/download-artifact@v2
+      with:
           name: build
           path: build
-      - name: Create SSH key
-        run: |
+    - name: Create SSH key
+      run: |
           install -m 600 -D /dev/null ~/.ssh/id_rsa
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-      - name: Deploy with rsync
-        run: rsync -rav --delete build/ user@host:/
+          echo "$SSH_HOSTS" > ~/.ssh/known_hosts
+    - name: Deploy with rsync
+      run: rsync -rav --delete build/ user@host:/
       
-      - name: Clean 
-        run: rm -rf ~/.ssh
+    - name: Clean 
+      run: rm -rf ~/.ssh
