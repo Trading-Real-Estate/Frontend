@@ -16,7 +16,7 @@ function ConnectMetamaskButton({ onLogin }) {
         
         // Create a provider
         const { providers } = ethers;
-        const provider = new providers.Web3Provider(window.ethereum);
+        const provider = new providers.BrowserProvider(window.ethereum);
         // Get the signer
         const signer = provider.getSigner();
         
@@ -37,7 +37,7 @@ function ConnectMetamaskButton({ onLogin }) {
         console.log('Connected to Metamask and signed message:', message);
       } catch (error) {
         console.error('Failed to connect to Metamask:', error);
-      }
+      } 
     } else {
       console.error('Metamask is not available');
     }
