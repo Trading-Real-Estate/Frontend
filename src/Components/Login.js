@@ -15,7 +15,8 @@ function ConnectMetamaskButton({ onLogin }) {
         const address = accounts[0];
         
         // Create a provider
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const { providers } = ethers;
+        const provider = new providers.Web3Provider(window.ethereum);
         // Get the signer
         const signer = provider.getSigner();
         
