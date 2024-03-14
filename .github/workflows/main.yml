@@ -22,8 +22,9 @@ jobs:
       run: npm install --force
     - name: Build React App
       run: |
-        npm run build
         pwd
+        npm run build
+        
   deploy:
     runs-on: self-hosted
     steps:
