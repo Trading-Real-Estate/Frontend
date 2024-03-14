@@ -7,20 +7,27 @@ on:
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
+
     steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18' 
 
     - name: Install Dependencies
-      run: |
-        whoami
-        node -v
-        npm -v
-        npm install --force
+      run: npm install --force
     - name: Build React App
-      run: 
+      run: |
         npm run build
         pwd
-    - name: Whoami
+  deploy:
+    runs-on: self-hosted
+    steps:
+    - name: Install SSH key
       run: |
           whoami
           pwd
