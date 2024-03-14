@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Layout, Form, Input } from 'antd';
 import AppHeader from '../Components/Header/Header';
 import AppFooter from '../Components/Footer/Footer';
-import EmailSubscription from '../Components/Content/email';
+
 const { Content } = Layout;
 
 const UserInfo = () => {
@@ -38,7 +38,6 @@ const UserInfo = () => {
           {/* Thêm các trường thông tin khác được lưu trong userInfo */}
         </Form>
       </Content>
-      <EmailSubscription />
       <AppFooter />
     </Layout>
   );

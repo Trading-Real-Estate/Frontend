@@ -9,8 +9,8 @@ import SimpleBar from 'simplebar-react';
 import 'simplebar-react/dist/simplebar.min.css';
 import { UploadOutlined } from '@ant-design/icons';
 
-import EmailSubscription from '../Components/Content/email';
 import '../Page/UserKyc.css';
+
 const { useForm } = Form;
  //const UserKyc = () => {
 //   const navigate = useNavigate();
@@ -261,7 +261,6 @@ function UserKyc(){
         <button className="Previous Button" onClick={navigatePrevious}>Quay lại</button>
         <button className="Next Button" onClick={navigateNext}>Tiếp theo</button>
       </footer>
-      <EmailSubscription />
       <AppFooter style={{ position: 'fixed', bottom: '0', left: '0', right: '0', width: '100%' }}/>
 
     </>
