@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout, Button } from 'antd';
-import CustomCard from './Card'; // Import CustomCard component
+import CustomCard from '../Card'; // Import CustomCard component
 import './Content.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation, Autoplay } from 'swiper/modules';

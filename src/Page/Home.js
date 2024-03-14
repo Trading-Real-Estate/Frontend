@@ -1,8 +1,8 @@
 import React from 'react';
 import ContentComponent from '../Components/Content/Content';
-import EmailSubscription from '../Components/Content/email';
+import EmailSubscription from '../Components/email/email';
 import { Layout } from 'antd';
-import Background from '../Components/Content/open';
+import Background from '../Components/open/open';
 
 import AppHeader from '../Components/Header/Header';
 import AppFooter from '../Components/Footer/Footer';

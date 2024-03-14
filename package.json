@@ -10,6 +10,8 @@
     "animate.css": "^4.1.1",
     "antd": "^5.14.1",
     "dotenv": "^16.4.1",
+    "ethereumjs-util": "^7.1.5",
+    "ethers": "^6.11.1",
     "react": "^18.2.0",
     "react-coverflow": "^0.2.20",
     "react-dom": "^18.2.0",
