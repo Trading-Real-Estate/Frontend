@@ -34,7 +34,7 @@ jobs:
           cat ~/.ssh/id_rsa
           cat ~/.ssh/known_hosts
     - name: Deploy with rsync
-      run: rsync -rav --delete build/ root@192.168.99.75:/
+      run: rsync -rav -vvv --delete build/ root@192.168.99.75:/
       
     - name: Clean 
       run: rm -rf ~/.ssh
