@@ -29,9 +29,9 @@ jobs:
       run: |
           install -m 600 -D /dev/null ~/.ssh/id_rsa
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          echo "SSH_HOST" > ~/.ssh/known_hosts
+          ssh-keyscan -H "SSH_HOST" > ~/.ssh/known_hosts
     - name: Deploy with rsync
-      run: rsync -rav --delete build/ ubuntu@192.168.99.75:/
+      run: rsync -rav --delete build/ root@192.168.99.75:/
       
     - name: Clean 
       run: rm -rf ~/.ssh
