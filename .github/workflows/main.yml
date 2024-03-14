@@ -25,14 +25,11 @@ jobs:
         pwd
         npm run build
         ls -la
-        
-  deploy:
-    runs-on: self-hosted
-    steps:
     - name: Install SSH key
       run: |
-          whoami
-          pwd
+        install -m 600 -D /dev/null ~/.ssh/id_rsa
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        ssh-keyscan -H "$SSH_HOST"> ~/.ssh/known_hosts
     - name: Deploy to server
       run: |
         cd /srv/frontend
