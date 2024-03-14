@@ -29,7 +29,7 @@ jobs:
       run: |
           install -m 600 -D /dev/null ~/.ssh/id_rsa
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          ssh-keyscan -t rsa $SSH_HOST>> ~/.ssh/known_hosts
+          echo "SSH_HOST" > ~/.ssh/known_hosts
     - name: Deploy with rsync
       run: rsync -rav --delete build/ ubuntu@192.168.99.75:/
       
